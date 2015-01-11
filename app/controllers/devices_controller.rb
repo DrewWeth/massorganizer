@@ -60,13 +60,13 @@ class DevicesController < ApplicationController
       pawprint = message_body.scan(/\(([^)]*)\)/)
       puts pawprint
       device.update(:pawprint => pawprint.to_s)
-      message += "You're pawprint is: " + pawprint.to_s ". "
+      message += "You're pawprint is: " + pawprint.to_s + ". "
     end
 
     if interests = device.interests
 
       message += "You are now subscribed to "
-      message += interests.map(&:name).join(",")
+      message += interests.map(&:name).join(", ")
       message += ". Thanks!"
     end
 
@@ -81,6 +81,10 @@ class DevicesController < ApplicationController
     rescue Exception => e
       puts e
     end
+
+    result = {}
+    result[:result] = "success"
+    render :json => result
   end
 
 
