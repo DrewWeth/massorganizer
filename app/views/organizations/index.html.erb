@@ -1,0 +1,36 @@
+<h1>Listing organizations</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Desc</th>
+      <th>Phone number</th>
+      <th>Owner</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @organizations.each do |organization| %>
+      <tr>
+        <td><%= organization.name %></td>
+        <td><%= organization.desc %></td>
+        <td><%= organization.phone_number %></td>
+        <td><%= organization.owner_id %></td>
+        <td><%= link_to 'Show', organization %></td>
+        <td><%= link_to 'Edit', edit_organization_path(organization) %></td>
+        <td><%= link_to 'Destroy', organization, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Organization', new_organization_path %>
+
+<h3>Your Organizations</h3>
+<%= @owned.each do |org| %>
+  <%= link_to org.name, org %>
+<% end %>

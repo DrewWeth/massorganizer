@@ -1,0 +1,27 @@
+<h1>Listing device_interests</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Device</th>
+      <th>Interest</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @device_interests.each do |device_interest| %>
+      <tr>
+        <td><%= device_interest.device_id %></td>
+        <td><%= device_interest.interest_id %></td>
+        <td><%= link_to 'Show', device_interest %></td>
+        <td><%= link_to 'Edit', edit_device_interest_path(device_interest) %></td>
+        <td><%= link_to 'Destroy', device_interest, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Device interest', new_device_interest_path %>

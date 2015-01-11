@@ -1,0 +1,27 @@
+<h1>Listing device_submissions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Device</th>
+      <th>Message</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @device_submissions.each do |device_submission| %>
+      <tr>
+        <td><%= device_submission.device_id %></td>
+        <td><%= device_submission.message %></td>
+        <td><%= link_to 'Show', device_submission %></td>
+        <td><%= link_to 'Edit', edit_device_submission_path(device_submission) %></td>
+        <td><%= link_to 'Destroy', device_submission, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Device submission', new_device_submission_path %>

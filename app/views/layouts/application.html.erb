@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Massorganizer</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<%= link_to 'Organizations', organizations_path %> <%= link_to 'Interests', interests_path %> <%= link_to 'Device Interests', device_interests_path %> <%= link_to 'Devices', devices_path %>
+
+<% if current_user == nil %>
+<%= link_to 'Sign Up', new_user_registration_path %>
+<%= link_to 'Sign In', new_user_session_path %>
+<% else %>
+<%= link_to 'Sign Out', destroy_user_session_path, :method => 'delete' %>
+
+
+<% end %>
+
+<%= yield %>
+
+
+</body>
+</html>

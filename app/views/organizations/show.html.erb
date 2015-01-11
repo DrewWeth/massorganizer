@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+
+
+
+<% if current_user and current_user.id == @organization.owner_id %><%= link_to 'Edit', edit_organization_path(@organization) %><% end %>
+<%= link_to 'Back', organizations_path %>
+
+<h2>Your Organization</h2>
+<p>
+  <strong>Name:</strong>
+  <%= @organization.name %>
+</p>
+
+<p>
+  <strong>Desc:</strong>
+  <%= @organization.desc %>
+</p>
+
+<p>
+  <strong>Phone number:</strong>
+  <%= @organization.phone_number %>
+</p>
+
+<p>
+  <strong>Owner:</strong>
+  <%= @organization.owner_id %>
+</p>
+
+
+<hr>
+<h3>Interests</h3>
+<ol>
+<% @interests.each do |interest| %>
+<li><%= link_to interest.name, interest %> <%= interest.devices.count %></li>
+
+<% end %>
+</ol>
+
+
+<hr>
+<h3>Created Interest</h3>
+<%= render :template => "interests/_form" %>

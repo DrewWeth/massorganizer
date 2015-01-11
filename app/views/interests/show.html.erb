@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @interest.name %>
+</p>
+
+<p>
+  <strong>Organization:</strong>
+  <%= @interest.organization_id %>
+</p>
+
+<p>
+  <strong>Desc:</strong>
+  <%= @interest.desc %>
+</p>
+
+<p>
+  <strong>Main email:</strong>
+  <%= @interest.main_email %>
+</p>
+
+<%= link_to 'Edit', edit_interest_path(@interest) %> |
+<%= link_to 'Back', interests_path %>
+
+<hr>
+
+<h3>Devices</h3>
+
+<% @devices.each do |device| %>
+
+  <%= link_to device.tele, device %>
+
+  <% end %>

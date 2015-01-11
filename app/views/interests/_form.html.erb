@@ -1,0 +1,39 @@
+<%= form_for(@interest) do |f| %>
+  <% if @interest.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@interest.errors.count, "error") %> prohibited this interest from being saved:</h2>
+
+      <ul>
+      <% @interest.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <% if params[:controller] != 'organizations' %>
+  <div class="field">
+    <%= f.label :organization_id %><br>
+    <%= f.number_field :organization_id %>
+  </div>
+
+  <% else %>
+    <input type="hidden" name="organization_id" value="<%= params["id"] %>"/>
+  <% end %>
+  <div class="field">
+    <%= f.label :desc %><br>
+    <%= f.text_area :desc %>
+  </div>
+  <div class="field">
+    <%= f.label :main_email %><br>
+    <%= f.text_field :main_email %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
