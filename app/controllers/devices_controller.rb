@@ -2,9 +2,15 @@ class DevicesController < ApplicationController
   before_action :set_device, only: [:show, :edit, :update, :destroy]
 
 
+
+  skip_before_filter  :verify_authenticity_token
+  protect_from_forgery with: :null_session
+
+
   def message
     require 'twilio-ruby'
-    require 'cleverbot'
+
+    result = {}
 
     puts "Twilio authentication"
     account_sid = 'AC29e7b96239c5f0bfc6ab8b724e263f30'
@@ -19,7 +25,35 @@ class DevicesController < ApplicationController
     message_body = params["Body"]
     from_number = params["From"]
 
-    SMSLogger.log_text_message from_number, message_body
+    device = get_device(from_number)
+
+    matches = message_body.scan(/((?:[0-9]+,?)+)/)
+
+
+    result[:matches] = matches
+
+
+    matches.each do |match|
+      match = match.first
+
+      puts match
+      match.split(",").each do |interest|
+        puts interest
+        puts DeviceInterest.create(:device_id => device.id, :interest_id => interest)
+      end
+
+    end
+
+
+    pawprint = message_body.scan(/\(([^)]*)\)/)
+    puts pawprint
+    device.update(:pawprint => pawprint.to_s)
+
+    name = message_body.scan(/^[^\(]+/)
+    puts name
+    result[:device] = device.update(:name => name.first)
+
+    render :json => result
 
 
   end
@@ -90,6 +124,17 @@ class DevicesController < ApplicationController
   end
 
   private
+
+    def get_device(from_number)
+      if device = Device.where(tele: from_number.to_s).take
+
+      else
+        device = Device.create(tele: from_number)
+      end
+
+      return device
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_device
       @device = Device.find(params[:id])
