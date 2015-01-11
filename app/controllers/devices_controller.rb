@@ -27,6 +27,7 @@ class DevicesController < ApplicationController
 
     device = get_device(from_number)
 
+
     matches = message_body.scan(/((?:[0-9]+,?)+)/)
 
 
@@ -41,21 +42,45 @@ class DevicesController < ApplicationController
         puts interest
         puts DeviceInterest.create(:device_id => device.id, :interest_id => interest)
       end
+    end
 
+    message = ""
+
+
+    if device.name == nil
+
+      name = message_body.scan(/^[^\(]+/)
+      puts name
+      result[:device] = device.update(:name => name.first)
+      message += "You're name is " + name.to_s + ". "
+    end
+
+    if device.pawprint == nil
+
+      pawprint = message_body.scan(/\(([^)]*)\)/)
+      puts pawprint
+      device.update(:pawprint => pawprint.to_s)
+      message += "You're pawprint is: " + pawprint.to_s ". "
+    end
+
+    if interests = device.interests
+
+      message += "You are now subscribed to "
+      message += interests.map(&:name).join(",")
+      message += ". Thanks!"
     end
 
 
-    pawprint = message_body.scan(/\(([^)]*)\)/)
-    puts pawprint
-    device.update(:pawprint => pawprint.to_s)
+    begin
 
-    name = message_body.scan(/^[^\(]+/)
-    puts name
-    result[:device] = device.update(:name => name.first)
-
-    render :json => result
-
-
+      @client.account.messages.create(
+      :from => '+13147363270',
+      :to => from_number,
+      :body => message
+      )
+    rescue Exception => e
+      puts e
+    end
   end
 
 
