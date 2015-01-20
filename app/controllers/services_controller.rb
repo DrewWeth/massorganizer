@@ -16,7 +16,7 @@ class ServicesController < ApplicationController
 
 
       q = params["q"]
-      receivers = params["receivers"]
+      receivers = params["receivers"].to_i
 
       if receivers == -1
         send_arr = Device.all.map{|x| x.id}
@@ -29,11 +29,12 @@ class ServicesController < ApplicationController
       result[:q] = q
       result[:receivers] = receivers
       result[:send_arr] = send_arr
+      result[:sent_to] = []
 
       send_arr.each do |send|
 
-        device = Device.where(:id=> send).take
-        result[:sent_to] = device
+        device = Device.where(:id=> send.to_i).take
+        result[:sent_to].push(device)
         begin
 
           @client.account.messages.create(
@@ -46,8 +47,9 @@ class ServicesController < ApplicationController
         end
 
       result[:result] = "success"
-      render :json => result
     end
+    render :json => result
+
   end
 
 end

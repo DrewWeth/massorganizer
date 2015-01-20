@@ -26,13 +26,13 @@ class DevicesController < ApplicationController
     from_number = params["From"]
 
     if message_body.downcase.index("help")
-      interests = Interest.all.map{|x| x.name + " (" + x.id +")" }.join(", ")
+      interests = Interest.all.map{|x| x.name + " (" + x.id.to_s + ")" }.join(", ")
       begin
         result[:interests] = interests
         @client.account.messages.create(
         :from => '+13147363270',
         :to => from_number,
-        :body => "Hello. The interests are: " + interests
+        :body => 'Usage: Text "Your name (your pawprint) list of interests". Example: "Drew (agwrnd) 1,2,4". The interests are: ' + interests
         )
       rescue Exception => e
         puts e
