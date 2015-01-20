@@ -8,18 +8,97 @@
 </head>
 <body>
 
-<%= link_to 'Organizations', organizations_path %> <%= link_to 'Interests', interests_path %> <%= link_to 'Device Interests', device_interests_path %> <%= link_to 'Devices', devices_path %>
-
-<% if current_user == nil %>
-<%= link_to 'Sign Up', new_user_registration_path %>
-<%= link_to 'Sign In', new_user_session_path %>
-<% else %>
-<%= link_to 'Sign Out', destroy_user_session_path, :method => 'delete' %>
 
 
-<% end %>
+<nav class="navbar navbar-fixed-top navbar-buffer navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <%= link_to 'Mass Organizer', root_path, {:class => "navbar-brand"} %>
+    </div>
 
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li
+        <% if params["controller"] == "organizations" %>
+          class="active"
+        <% end %>
+
+
+        ><%= link_to 'Organizations', organizations_path %></li>
+        <li
+        <% if params["controller"] == "interests" %>
+        class="active"
+        <% end %>
+        ><%= link_to 'Interests', interests_path %></li>
+        <li
+        <% if params["controller"] == "device_interests" %>
+        class="active"
+        <% end %>
+        ><%= link_to 'Device Interests', device_interests_path %></li>
+        <li
+        <% if params["controller"] == "devices" %>
+        class="active"
+        <% end %>
+        ><%= link_to 'Devices', devices_path %></li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">+1 (314) 736-3270</a></li>
+        <li>
+          <% if current_user == nil %>
+            <%= link_to 'Sign In', new_user_session_path %>
+          <% else %>
+            <%= link_to current_user.email, edit_user_registration_path %>
+          <% end %>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+<div class="container">
+  <div class="navbar-buffer"></div>
 <%= yield %>
+</div>
+
+<div class="container-fluid footer">
+  <div class="row">
+    <div class="col-sm-4">
+
+    </div>
+    <div class="col-sm-4">
+
+    </div>
+    <div class="col-sm-4">
+
+    </div>
+  </div>
+</div>
+
+
+<nav class="navbar navbar-fixed-bottom navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-center">
+
+        <div class="margin-top">
+          Drew Wetherington (agwrnd) 1,2,4
+          </div>
+        +1 (314) 736-3270
+    </div>
+
+
+  </div><!-- /.container-fluid -->
+</nav>
 
 
 </body>

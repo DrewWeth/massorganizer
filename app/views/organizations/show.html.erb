@@ -1,42 +1,62 @@
 <p id="notice"><%= notice %></p>
 
 
+<div class="row">
+  <div class="col-sm-7">
+    <% if current_user and current_user.id == @organization.owner_id %><%= link_to 'Edit', edit_organization_path(@organization) %><% end %>
+    <%= link_to 'Back', organizations_path %>
 
-<% if current_user and current_user.id == @organization.owner_id %><%= link_to 'Edit', edit_organization_path(@organization) %><% end %>
-<%= link_to 'Back', organizations_path %>
 
-<h2>Your Organization</h2>
-<p>
-  <strong>Name:</strong>
-  <%= @organization.name %>
-</p>
+    <h2><%= @organization.name %></h2>
 
-<p>
-  <strong>Desc:</strong>
-  <%= @organization.desc %>
-</p>
+    <p>
+      <strong>Desc:</strong>
+      <%= @organization.desc %>
+    </p>
 
-<p>
-  <strong>Phone number:</strong>
-  <%= @organization.phone_number %>
-</p>
+    <p>
+      <strong>Phone number:</strong>
+      <%= @organization.phone_number %>
+    </p>
 
-<p>
-  <strong>Owner:</strong>
-  <%= @organization.owner_id %>
-</p>
+    <p>
+      <strong>Owner:</strong>
+      <%= @organization.owner_id %>
+    </p>
+  </div>
+  <div class="col-sm-5">
+    <h3>Created Interest</h3>
+    <%= render :template => "interests/_form" %>
+  </div>
+</div>
 
 
 <hr>
 <h3>Interests</h3>
-<ol>
-<% @interests.each do |interest| %>
-<li><%= link_to interest.name, interest %> <%= interest.devices.count %></li>
+<div class="row">
+<% @interests.each_with_index do |interest, index| %>
+
+  <div class="col-sm-2">
+    <div class="id-box">
+      <div class="number">
+      <%= index %>
+      </div>
+      <!-- <%= interest.id %> -->
+      <div class="name">
+      <%= link_to interest.name, interest %>
+      </div>
+      <div class="desc">
+        <%= interest.desc %>
+      </div>
+    </div>
+  </div>
+
+  <% if (index+1) % 6 == 0 %>
+    </div>
+    <div class="row">
+  <% end %>
 
 <% end %>
-</ol>
-
+</div>
 
 <hr>
-<h3>Created Interest</h3>
-<%= render :template => "interests/_form" %>

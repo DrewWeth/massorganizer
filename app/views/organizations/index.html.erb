@@ -1,6 +1,6 @@
 <h1>Listing organizations</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
@@ -14,13 +14,15 @@
   <tbody>
     <% @organizations.each do |organization| %>
       <tr>
-        <td><%= organization.name %></td>
+        <td><%= link_to organization.name, organization %></td>
         <td><%= organization.desc %></td>
         <td><%= organization.phone_number %></td>
-        <td><%= organization.owner_id %></td>
+        <td><%= organization.user.email %></td>
         <td><%= link_to 'Show', organization %></td>
+        <% if current_user and current_user.id == organization.owner_id %>
         <td><%= link_to 'Edit', edit_organization_path(organization) %></td>
         <td><%= link_to 'Destroy', organization, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -28,9 +30,15 @@
 
 <br>
 
-<%= link_to 'New Organization', new_organization_path %>
+<%= link_to 'Create Organization', new_organization_path %>
 
 <h3>Your Organizations</h3>
-<%= @owned.each do |org| %>
-  <%= link_to org.name, org %>
+<ul>
+  <% if @owned.count == 0 %>
+  You don't have any organizations
+  <% else %>
+<% @owned.each do |org| %>
+  <li><%= link_to org.name, org %></li>
 <% end %>
+<% end %>
+</ul>

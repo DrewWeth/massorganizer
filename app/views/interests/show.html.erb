@@ -1,5 +1,6 @@
 <p id="notice"><%= notice %></p>
 
+
 <p>
   <strong>Name:</strong>
   <%= @interest.name %>
@@ -26,9 +27,12 @@
 <hr>
 
 <h3>Devices</h3>
-
-<% @devices.each do |device| %>
-
-  <%= link_to device.tele, device %>
-
+<ul>
+  <% if @devices.count == 0 %>
+    No devices associated with this interest
+  <% else %>
+    <% @devices.each do |device| %>
+      <li><%= link_to device.name, device %></li>
+    <% end %>
   <% end %>
+</ul>

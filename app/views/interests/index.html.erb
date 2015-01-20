@@ -1,6 +1,6 @@
 <h1>Listing interests</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
@@ -19,8 +19,10 @@
         <td><%= interest.desc %></td>
         <td><%= interest.main_email %></td>
         <td><%= link_to 'Show', interest %></td>
+        <% if current_user and current_user.admin != 0 %>
         <td><%= link_to 'Edit', edit_interest_path(interest) %></td>
         <td><%= link_to 'Destroy', interest, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

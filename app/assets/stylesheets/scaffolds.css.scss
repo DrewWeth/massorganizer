@@ -6,6 +6,47 @@ body {
   line-height: 18px;
 }
 
+.id-box{
+  text-align:center;
+  height:100%;
+  width:100%;
+  margin-bottom:10px;
+  background:#ddd;
+  padding:5px;
+}
+
+.margin-top{
+  margin-top:5px;
+}
+
+
+.navbar-center{
+  text-align:center;
+  line-height:20px;
+}
+
+
+
+.number{
+  font-size:200%;
+  margin:10px;
+}
+
+.name{
+  font-size:140%;
+  margin:5px;
+}
+
+
+.navbar-buffer{
+  margin-bottom:70px;
+}
+
+.footer{
+  padding-bottom:50px;
+  padding-top:50px;
+}
+
 p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
