@@ -25,64 +25,79 @@ class DevicesController < ApplicationController
     message_body = params["Body"]
     from_number = params["From"]
 
-    device = get_device(from_number)
+    if message_body.downcase.index("help")
+      interests = Interest.all.map{|x| x.name + " (" + x.id +")" }.join(", ")
+      begin
+        result[:interests] = interests
+        @client.account.messages.create(
+        :from => '+13147363270',
+        :to => from_number,
+        :body => "Hello. The interests are: " + interests
+        )
+      rescue Exception => e
+        puts e
+      end
+    else
 
 
-    matches = message_body.scan(/((?:[0-9]+,?)+)/)
+      device = get_device(from_number)
 
 
-    result[:matches] = matches
+      matches = message_body.scan(/((?:[0-9]+,?)+)/)
 
 
-    matches.each do |match|
-      match = match.first
+      result[:matches] = matches
 
-      puts match
-      match.split(",").each do |interest|
-        puts interest
-        puts DeviceInterest.create(:device_id => device.id, :interest_id => interest)
+
+      matches.each do |match|
+        match = match.first
+
+        puts match
+        match.split(",").each do |interest|
+          puts interest
+          puts DeviceInterest.create(:device_id => device.id, :interest_id => interest)
+        end
+      end
+
+      message = ""
+
+      if device.name == nil
+
+        name = message_body.scan(/^[^\(]+/).first.strip
+
+        result[:name] = name
+        result[:device] = device.update(:name => name)
+        message += "You're name is " + name.to_s + ". "
+      end
+
+      if device.pawprint == nil
+
+        pawprint = message_body.scan(/\(([^)]*)\)/).first.first
+
+        result[:pawprint] = pawprint
+        device.update(:pawprint => pawprint.to_s)
+        message += "You're pawprint is: " + pawprint.to_s + ". "
+      end
+
+      if interests = device.interests
+
+        message += "You are now subscribed to "
+        message += interests.map(&:name).join(", ")
+        message += ". Thanks!"
+      end
+
+
+      begin
+
+        @client.account.messages.create(
+        :from => '+13147363270',
+        :to => from_number,
+        :body => message
+        )
+      rescue Exception => e
+        puts e
       end
     end
-
-    message = ""
-
-    if device.name == nil
-
-      name = message_body.scan(/^[^\(]+/).first.strip
-
-      result[:name] = name
-      result[:device] = device.update(:name => name)
-      message += "You're name is " + name.to_s + ". "
-    end
-
-    if device.pawprint == nil
-
-      pawprint = message_body.scan(/\(([^)]*)\)/).first.first
-
-      result[:pawprint] = pawprint
-      device.update(:pawprint => pawprint.to_s)
-      message += "You're pawprint is: " + pawprint.to_s + ". "
-    end
-
-    if interests = device.interests
-
-      message += "You are now subscribed to "
-      message += interests.map(&:name).join(", ")
-      message += ". Thanks!"
-    end
-
-
-    begin
-
-      @client.account.messages.create(
-      :from => '+13147363270',
-      :to => from_number,
-      :body => message
-      )
-    rescue Exception => e
-      puts e
-    end
-
     result[:result] = "success"
     render :json => result
   end

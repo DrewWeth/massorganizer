@@ -10,6 +10,12 @@ class OrganizationsController < ApplicationController
     else
       @owned = []
     end
+
+    if current_user and current_user.admin != 0
+      @members_arr = Device.all.map{|x| [ x.name + " (" + x.tele + ")", x.id]}
+      @members_arr.push(["All", -1])
+
+    end
   end
 
   # GET /organizations/1

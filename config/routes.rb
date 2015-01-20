@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   root 'organizations#index'
 
+  post 'services/text' => 'services#text'
+
   resources :organizations
 
   resources :interests

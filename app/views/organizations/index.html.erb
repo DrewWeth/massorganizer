@@ -42,3 +42,24 @@
 <% end %>
 <% end %>
 </ul>
+
+
+
+
+<% if current_user and current_user.admin != 0 %>
+<h3>Texting Service</h3>
+
+<%= form_tag({controller: "services", action: "text"}, method: "post", class: "") do %>
+<%= label_tag(:q, "Content") %>
+<%= text_field_tag(:q) %>
+<br>
+<%= label_tag("Receivers") %>
+<%= select_tag(:receivers, options_for_select(@members_arr)) %>
+
+
+
+<%= submit_tag("Search") %>
+<% end %>
+
+
+<% end %>
