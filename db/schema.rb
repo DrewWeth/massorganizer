@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150111070913) do
+ActiveRecord::Schema.define(version: 20150120012309) do
 
   create_table "device_interests", force: true do |t|
     t.integer  "device_id"
@@ -76,9 +76,9 @@ ActiveRecord::Schema.define(version: 20150111070913) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.integer  "admin",                  default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "admin",                  default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
