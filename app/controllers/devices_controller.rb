@@ -46,19 +46,20 @@ class DevicesController < ApplicationController
 
     message = ""
 
-
     if device.name == nil
 
-      name = message_body.scan(/^[^\(]+/)
-      puts name
-      result[:device] = device.update(:name => name.first)
+      name = message_body.scan(/^[^\(]+/).first.strip
+
+      result[:name] = name
+      result[:device] = device.update(:name => name)
       message += "You're name is " + name.to_s + ". "
     end
 
     if device.pawprint == nil
 
-      pawprint = message_body.scan(/\(([^)]*)\)/)
-      puts pawprint
+      pawprint = message_body.scan(/\(([^)]*)\)/).first.first
+
+      result[:pawprint] = pawprint
       device.update(:pawprint => pawprint.to_s)
       message += "You're pawprint is: " + pawprint.to_s + ". "
     end
@@ -82,7 +83,6 @@ class DevicesController < ApplicationController
       puts e
     end
 
-    result = {}
     result[:result] = "success"
     render :json => result
   end
