@@ -1,8 +1,15 @@
 <p id="notice"><%= notice %></p>
 
+<% if current_user and current_user.admin != 0 %>
 <p>
   <strong>Tele:</strong>
   <%= @device.tele %>
+</p>
+<% end %>
+
+<p>
+  <strong>Name:</strong>
+  <%= @device.name %>
 </p>
 
 <p>
@@ -10,8 +17,22 @@
   <%= @device.pawprint %>
 </p>
 
+<h4>Interests</h4>
+
+
+<ul>
+  <% if @interests.count == 0 %>
+  No interests associated with this device
+  <% else %>
+  <% @interests.each do |int| %>
+
+<li><%= link_to int.name, int %></li>
+  <% end %>
+  <% end %>
+</ul>
+
 <% if current_user and current_user.admin != 0 %>
 
-  <%= link_to 'Edit', edit_device_path(@device) %> |
+  <%= link_to 'Edit', edit_device_path(@device) if current_user and current_user.admin != 0 %> |
 <% end %>
 <%= link_to 'Back', devices_path %>

@@ -101,6 +101,7 @@ class DevicesController < ApplicationController
   # GET /devices/1
   # GET /devices/1.json
   def show
+    @interests = @device.interests
   end
 
   # GET /devices/new
