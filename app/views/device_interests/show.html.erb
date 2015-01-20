@@ -10,5 +10,5 @@
   <%= @device_interest.interest_id %>
 </p>
 
-<%= link_to 'Edit', edit_device_interest_path(@device_interest) %> |
+<%= link_to 'Edit', edit_device_interest_path(@device_interest) if current_user and current_user.admin != 0 %> |
 <%= link_to 'Back', device_interests_path %>

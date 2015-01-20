@@ -21,7 +21,7 @@
   <%= @interest.main_email %>
 </p>
 
-<%= link_to 'Edit', edit_interest_path(@interest) %> |
+<%= link_to 'Edit', edit_interest_path(@interest) if current_user and current_user.id != 0 %> |
 <%= link_to 'Back', interests_path %>
 
 <hr>
