@@ -25,7 +25,7 @@ class DevicesController < ApplicationController
     message_body = params["Body"]
     from_number = params["From"]
 
-    if message_body.downcase.index("help")
+    if message_body.downcase.index("usage")
       interests = Interest.all.map{|x| x.name + " (" + x.id.to_s + ")" }.join(", ")
       begin
         result[:interests] = interests
