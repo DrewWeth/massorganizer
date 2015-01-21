@@ -14,7 +14,6 @@ class ServicesController < ApplicationController
         puts e.message
       end
 
-
       q = params["q"]
       receivers = params["receivers"].to_i
 
@@ -23,8 +22,6 @@ class ServicesController < ApplicationController
       else
         send_arr = [receivers]
       end
-
-
 
       result[:q] = q
       result[:receivers] = receivers
