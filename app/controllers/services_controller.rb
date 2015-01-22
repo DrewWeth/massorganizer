@@ -15,17 +15,20 @@ class ServicesController < ApplicationController
       end
 
       q = params["q"]
-      receivers = params["receivers"].to_i
+      receivers = params["receivers"]
 
-      if receivers == -1
+      if !receivers.kind_of?(Array) and receivers == -1
         send_arr = Device.all.map{|x| x.id}
       else
-        send_arr = [receivers]
+        send_arr = receivers
       end
 
+      result[:send_count] = send_arr.count
       result[:q] = q
+
       result[:receivers] = receivers
       result[:send_arr] = send_arr
+
       result[:sent_to] = []
 
       send_arr.each do |send|

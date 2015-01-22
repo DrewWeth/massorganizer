@@ -21,6 +21,12 @@
   <%= @interest.main_email %>
 </p>
 
+<p>
+  <strong>Organization:</strong>
+  <%= link_to @interest.organization.name, @interest.organization %>
+</p>
+
+
 <%= link_to 'Edit', edit_interest_path(@interest) if current_user and current_user.id != 0 %> |
 <%= link_to 'Back', interests_path %>
 

@@ -7,7 +7,7 @@
       <th>Desc</th>
       <th>Phone number</th>
       <th>Owner</th>
-      <th colspan="3"></th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
@@ -18,7 +18,6 @@
         <td><%= organization.desc %></td>
         <td><%= organization.phone_number %></td>
         <td><%= organization.user.email %></td>
-        <td><%= link_to 'Show', organization %></td>
         <% if current_user and current_user.id == organization.owner_id %>
         <td><%= link_to 'Edit', edit_organization_path(organization) %></td>
         <td><%= link_to 'Destroy', organization, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -53,7 +52,7 @@
 <%= text_field_tag :q, nil, :class=>"form-control" %>
 <br>
 <%= label_tag("Receivers") %>
-<%= select_tag :receivers, options_for_select(@members_arr), :class=>"form-control" %>
+<%= select_tag :receivers, options_for_select(@members_arr), {:class=>"form-control", :multiple => true, :prompt => "Please select"} %>
 
 
 

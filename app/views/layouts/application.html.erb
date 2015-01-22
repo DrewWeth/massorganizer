@@ -38,11 +38,15 @@
         class="active"
         <% end %>
         ><%= link_to 'Interests', interests_path %></li>
-        <li
-        <% if params["controller"] == "device_interests" %>
-        class="active"
+
+        <% if current_user and current_user.admin != 0 %>
+          <li
+          <% if params["controller"] == "device_interests" %>
+          class="active"
+          <% end %>
+          ><%= link_to 'Device Interests', device_interests_path %></li>
         <% end %>
-        ><%= link_to 'Device Interests', device_interests_path %></li>
+
         <li
         <% if params["controller"] == "devices" %>
         class="active"
