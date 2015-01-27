@@ -67,7 +67,7 @@ class DevicesController < ApplicationController
 
         result[:name] = name
         result[:device] = device.update(:name => name)
-        message += "You're name is " + name.to_s + ". "
+        message += "Your name is " + name.to_s + ". "
       end
 
       if device.pawprint == nil
@@ -76,7 +76,7 @@ class DevicesController < ApplicationController
 
         result[:pawprint] = pawprint
         device.update(:pawprint => pawprint.to_s)
-        message += "You're pawprint is: " + pawprint.to_s + ". "
+        message += "Your pawprint is: " + pawprint.to_s + ". "
       end
 
       if interests = device.interests

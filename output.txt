@@ -1,0 +1,17 @@
+Gemfile
+Gemfile.lock
+README.md
+README.rdoc
+Rakefile
+app
+bin
+config
+config.ru
+db
+lib
+log
+output.txt
+public
+test
+tmp
+vendor
