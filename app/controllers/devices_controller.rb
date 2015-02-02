@@ -127,8 +127,15 @@ class DevicesController < ApplicationController
 
     def get_email(device, message_body)
       device.email = message_body
+      prompt_welcome_message(device.tele)
+
       # prompt_for_org(device.tele)
       return true
+    end
+
+    def prompt_welcome_message(tele)
+      message = "Welcome to MCA!"
+      send_text(tele, message)
     end
 
     def get_org(device, message_body)
