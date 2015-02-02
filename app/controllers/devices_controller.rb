@@ -8,14 +8,6 @@ class DevicesController < ApplicationController
 
   require 'twilio-ruby'
 
-  puts "Twilio authentication"
-  account_sid = 'AC29e7b96239c5f0bfc6ab8b724e263f30'
-  auth_token = 'e9befab8a2ea884e92db21709fe073e1'
-  begin
-    @client = Twilio::REST::Client.new account_sid, auth_token
-  rescue Twilio::RESR::RequestError => e
-    puts e.message
-  end
 
 
   def message
@@ -134,7 +126,7 @@ class DevicesController < ApplicationController
     end
 
     def prompt_welcome_message(tele)
-      message = "Welcome to MCA!"
+      message = "Welcome to MCA! If you have any questions, comments, or concerns email Drew at agwrnd@mail.missouri.edu"
       send_text(tele, message)
     end
 
@@ -147,7 +139,7 @@ class DevicesController < ApplicationController
     end
 
     def prompt_for_email(tele)
-      message = "Please enter your email address."
+      message = "Great! Now enter your email address:"
       send_text(tele, message)
       return message
     end
@@ -176,11 +168,21 @@ class DevicesController < ApplicationController
 
     def send_text(tele, message)
       # Message composition
+
+      puts "Twilio authentication"
+      account_sid = 'AC29e7b96239c5f0bfc6ab8b724e263f30'
+      auth_token = 'e9befab8a2ea884e92db21709fe073e1'
+      begin
+        @client = Twilio::REST::Client.new account_sid, auth_token
+      rescue Twilio::RESR::RequestError => e
+        puts e.message
+      end
+
       begin
         @client.account.messages.create(
         :from => '+13147363270',
         :to => tele,
-        :body => message.to_s
+        :body => message
         )
 
       rescue Exception => e
@@ -203,11 +205,11 @@ class DevicesController < ApplicationController
           return setup
         end
 
-      elsif device.current_org == nil
-        if !get_org(device, message_body) # If you couldn't find org ID
-
-          setup[:stage] = prompt_for_org(device.tele)
-        end
+      # elsif device.current_org == nil
+      #   if !get_org(device, message_body) # If you couldn't find org ID
+      #
+      #     setup[:stage] = prompt_for_org(device.tele)
+      #   end
       else
         setup[:stage] = "Complete"
       end
@@ -251,12 +253,12 @@ class DevicesController < ApplicationController
     def analyze_text(device, message_body)
       result = {}
 
-      usage?(device, message_body)
+      # usage?(device, message_body)
 
-      switch?(device, message_body) # Switch organization
+      # switch?(device, message_body) # Switch organization
 
-      interests?(device, message_body)
-
+      # interests?(device, message_body)
+      return result
     end
 
 
