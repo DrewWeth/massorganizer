@@ -177,14 +177,11 @@ class DevicesController < ApplicationController
     def send_text(tele, message)
       # Message composition
       begin
-        # @client.account.messages.create(
-        # :from => '+13147363270',
-        # :to => tele,
-        # :body => message
-        # )
-
-        puts "SENT TEXT" + message.to_s
-
+        @client.account.messages.create(
+        :from => '+13147363270',
+        :to => tele,
+        :body => message.to_s
+        )
 
       rescue Exception => e
         puts e
