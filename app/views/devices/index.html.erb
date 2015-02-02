@@ -8,6 +8,7 @@
       <% end %>
       <th>Name</th>
       <th>Pawprint</th>
+      <th>Email</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -20,6 +21,7 @@
         <% end %>
         <td><%= device.name %></td>
         <td><%= device.pawprint %></td>
+        <td><%= device.email %></td>
         <td><%= link_to 'Show', device %></td>
 
         <% if current_user and current_user.admin != 0 %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150120012309) do
+ActiveRecord::Schema.define(version: 20150202033831) do
 
   create_table "device_interests", force: true do |t|
     t.integer  "device_id"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20150120012309) do
     t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "current_org"
   end
 
   create_table "interests", force: true do |t|

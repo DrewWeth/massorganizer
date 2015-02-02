@@ -18,6 +18,8 @@ end
 
 gem 'twilio-ruby', '~> 3.11'
 
+gem 'quiet_assets', :group => :development
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
