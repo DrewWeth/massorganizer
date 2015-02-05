@@ -22,7 +22,7 @@
 </p>
 
 
-<%= link_to 'Edit', edit_interest_path(@interest) if current_user and current_user.id != 0 %>
+<%= link_to 'Edit', edit_interest_path(@interest) if is_admin? %>
 <%= link_to 'Back', interests_path %>
 
 <hr>
@@ -38,7 +38,7 @@
   </ul>
 <% end %>
 
-<% if current_user and current_user.admin != 0 %>
+<% if int_mod? %>
 <div>
   <hr>
 

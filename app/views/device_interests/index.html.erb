@@ -15,7 +15,7 @@
         <td><%= device_interest.device_id %></td>
         <td><%= device_interest.interest_id %></td>
         <td><%= link_to 'Show', device_interest %></td>
-        <% if current_user and current_user.admin != 0 %>
+        <% if is_admin? %>
 
         <td><%= link_to 'Edit', edit_device_interest_path(device_interest) %></td>
         <td><%= link_to 'Destroy', device_interest, method: :delete, data: { confirm: 'Are you sure?' } %></td>

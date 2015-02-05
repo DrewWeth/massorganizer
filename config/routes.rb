@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get 'home/index' => 'home#index'
   get 'home' => 'home#index'
   get 'home/admin' => 'home#admin', as: 'admin_page'
-
+  get 'services/priv' => 'services#priv'
 
   resources :organizations
 

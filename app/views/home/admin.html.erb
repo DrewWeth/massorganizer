@@ -1,5 +1,6 @@
+<%= notice %>
 <h1>Admin Page</h1>
-<% if current_user and current_user.admin != 0 %>
+<% if is_admin? %>
 <h3>Texting Service <button class="btn btn-primary pull-right" id="texting_service">Toggle</button></h3>
 <div id="texting_service_div" style="display:none">
   <%= form_tag({controller: "services", action: "text"}, method: "post", class: "") do %>
@@ -14,6 +15,23 @@
   <% end %>
 
 </div>
+<div>
+  <h2>Change Privs</h2>
+  <form method="get" action="<%= url_for :controller => "services", :action => "priv" %>">
+
+  <div class="field">
+    <label>User</label>
+    <input type="text" name="user">
+  </div>
+  <div class="field">
+    <label>Priv</label>
+    <input type="number" name="priv">
+  </div>
+  <div class="actions">
+    <input type="submit" value="Submit"/>
+  </div>
+</div>
+
 
 <% end %>
 

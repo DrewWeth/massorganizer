@@ -20,7 +20,7 @@ class OrganizationsController < ApplicationController
     @interest = Interest.new
 
 
-    if current_user and current_user.admin != 0
+    if int_mod?
       @email_list = ""
       @interests.each do |a|
           @email_list << a.devices.collect{|b| b.email}.join(', ')

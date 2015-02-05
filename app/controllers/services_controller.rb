@@ -59,4 +59,20 @@ class ServicesController < ApplicationController
 
   end
 
+  def priv
+    notice = "Failed. Privs not changed."
+    if is_admin?
+      if user = User.where(:email => params[:user]).take and current_user.id != user.id
+        user.admin = params[:priv]
+        if user.save
+          notice = "Success! Privs changed."
+        end
+      end
+    end
+    respond_to do |format|
+      format.html { redirect_to :back, notice: notice }
+      format.json { head :no_content }
+    end
+  end
+
 end

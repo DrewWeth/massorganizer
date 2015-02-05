@@ -27,8 +27,10 @@
     </p>
   </div>
   <div class="col-sm-5">
-    <h3>Created Interest</h3>
-    <%= render :template => "interests/_form" %>
+    <% if is_admin? or @organization.owner_id == current_user.id %>
+      <h3>Created Interest</h3>
+      <%= render :template => "interests/_form" %>
+    <% end %>
   </div>
 </div>
 
@@ -63,7 +65,7 @@
 
 <hr>
 
-<% if current_user and current_user.admin != 0 %>
+<% if int_mod? %>
 <div class="row">
   <code>
   <%= @email_list %>

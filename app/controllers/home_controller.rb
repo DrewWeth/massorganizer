@@ -7,7 +7,7 @@ class HomeController < ApplicationController
   end
 
   def admin
-    if current_user and current_user.admin != 0
+    if int_mod?
       @interests_arr = Interest.all.map{|x| [ x.name + " in " + x.organization.name, x.id]}
       @interests_arr.push(["All", -1])
     else

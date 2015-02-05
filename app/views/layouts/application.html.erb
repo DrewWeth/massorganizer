@@ -39,7 +39,7 @@
         <% end %>
         ><%= link_to '<span class="glyphicon glyphicon-heart"></span> '.html_safe + 'Interests', interests_path %></li>
 
-        <% if current_user and current_user.admin != 0 %>
+        <% if org_mod? %>
           <li
           <% if params["controller"] == "device_interests" %>
           class="active"
