@@ -1,6 +1,5 @@
 <p id="notice"><%= notice %></p>
 
-
 <p>
   <h1><%= @interest.name %></h1>
 </p>
@@ -37,14 +36,16 @@
 <% end %>
 
 <% if int_mod? %>
+<% list = @devices.reject{|b| b.email.nil? and b.pawprint.nil? }.map{|a| a.email || a.pawprint + "@mail.missouri.edu"} %>
 <div>
   <hr>
-    <h3>Mailing List</h3>
+    <h3>Mailing List <label class="badge"><%= list.count %></label></h3>
     <p>
       Mailing list for this interest
     </p>
       <code>
-        <%= @devices.map{|a| a.email || a.pawprint + "@mail.missouri.edu"}.join(', ') %>
+
+        <%= list.join(', ') %>
       </code>
     </p>
   </p>
