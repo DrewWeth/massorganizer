@@ -1,4 +1,4 @@
-<h1>Listing devices<%= link_to 'Register New Device', new_device_path, :class=>"btn btn-info pull-right" %></h1>
+<h1>Listing devices <label class="badge"><%= @devices.count %></label><%= link_to 'Register New Device', new_device_path, :class=>"btn btn-info pull-right" %></h1>
 
 <table class="table">
   <thead>
