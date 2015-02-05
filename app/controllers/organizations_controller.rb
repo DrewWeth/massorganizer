@@ -22,14 +22,14 @@ class OrganizationsController < ApplicationController
 
     if int_mod?
       @email_list = []
-      @interests.each do |a|
-          @email_list << a.devices.reject{|b| b.email.nil? and b.pawprint.nil? }.map{|a| a.email || a.pawprint + "@mail.missouri.edu"} if a.devices.count > 0
-      end
-      @devices_with_no_interests = Device.where.not(:email => nil)
-      @devices_with_no_interests.each do |d|
-        @email_list << d unless @email_list.inlcude?(d.email)
-      end
-
+      # @interests.each do |a|
+      #     @email_list << a.devices.reject{|b| b.email.nil? and b.pawprint.nil? }.map{|a| a.email || a.pawprint + "@mail.missouri.edu"} if a.devices.count > 0
+      # end
+      # @devices_with_emails = Device.where.not(:email => nil)
+      # @devices_with_emails.each do |d|
+      #   @email_list << d.email if DeviceInterest.where(:device_id => d.id)
+      # end
+      @email_list = Device.all.map{|x| x.email || (x.pawprint + "@mail.missouri.edu" if !x.pawprint.nil?) }
       @email_list = @email_list.join(', ')
     end
 
