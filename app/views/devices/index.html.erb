@@ -15,13 +15,13 @@
 
   <tbody>
     <% @devices.each do |device| %>
-      <tr class="<%= "success" if current_user and device.email == current_user.email %>">
+      <tr>
         <% if current_user and current_user.admin != 0 %>
         <td><%= device.tele %></td>
         <% end %>
-        <td><%= device.name.humanize %></td>
-        <td><%= device.pawprint || "Not available" %></td>
-        <td><%= device.email.humanize %></td>
+        <td><%= device.name %></td>
+        <td><%= device.pawprint %></td>
+        <td><%= device.email %></td>
         <td><%= link_to 'Show', device %></td>
 
         <% if current_user and current_user.admin != 0 %>
