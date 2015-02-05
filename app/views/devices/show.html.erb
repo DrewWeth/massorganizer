@@ -13,9 +13,10 @@
 </p>
 
 <p>
-  <strong>Pawprint:</strong>
-  <%= @device.pawprint || "Not available" %>
+  <strong>Connect:</strong>
+  <%= @device.email || @device.pawprint || "Not available" %>
 </p>
+
 <hr>
 <h4>Interests</h4>
 

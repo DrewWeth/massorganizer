@@ -21,12 +21,11 @@ class OrganizationsController < ApplicationController
 
 
     if int_mod?
-      @email_list = ""
+      @email_list = []
       @interests.each do |a|
-          @email_list << a.devices.collect{|b| b.email}.join(', ')
-
+          @email_list << a.devices.reject{|b| b.email.nil? and b.pawprint.nil? }.map{|a| a.email || a.pawprint + "@mail.missouri.edu"} if a.devices.count > 0
       end
-
+      @email_list = @email_list.join(', ')
     end
 
   end
