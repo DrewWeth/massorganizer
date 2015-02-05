@@ -9,30 +9,32 @@
 
 <p>
   <strong>Name:</strong>
-  <%= @device.name %>
+  <%= @device.name.humanize %>
 </p>
 
 <p>
   <strong>Pawprint:</strong>
-  <%= @device.pawprint %>
+  <%= @device.pawprint || "Not available" %>
 </p>
-
+<hr>
 <h4>Interests</h4>
 
-
-<ul>
-  <% if @interests.count == 0 %>
+<% if @interests.count == 0 %>
   No interests associated with this device
-  <% else %>
-  <% @interests.each do |int| %>
+<% else %>
 
-<li><%= link_to int.name, int %></li>
-  <% end %>
-  <% end %>
-</ul>
+  <ul>
+    <% @interests.each do |int| %>
 
+  <li><%= link_to int.name, int %></li>
+  </ul>
+<% end %>
+
+<% end %>
+<br><br>
 <% if current_user and current_user.admin != 0 %>
 
-  <%= link_to 'Edit', edit_device_path(@device) if current_user and current_user.admin != 0 %> |
+  <%= link_to 'Edit', edit_device_path(@device) if current_user and current_user.admin != 0 %>
 <% end %>
+
 <%= link_to 'Back', devices_path %>

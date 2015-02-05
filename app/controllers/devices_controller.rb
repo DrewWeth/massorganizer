@@ -108,7 +108,7 @@ class DevicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def device_params
-      params.require(:device).permit(:tele, :pawprint, :name)
+      params.require(:device).permit(:tele, :pawprint, :name, :email, :current_org)
     end
 
     def get_name(device, message_body)
@@ -260,9 +260,6 @@ class DevicesController < ApplicationController
       # interests?(device, message_body)
       return result
     end
-
-
-
 
 
 

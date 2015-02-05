@@ -30,7 +30,7 @@ class InterestsController < ApplicationController
 
     respond_to do |format|
       if @interest.save
-        format.html { redirect_to @interest, notice: 'Interest was successfully created.' }
+        format.html { redirect_to :back, notice: 'Interest was successfully created.' }
         format.json { render :show, status: :created, location: @interest }
       else
         format.html { render :new }

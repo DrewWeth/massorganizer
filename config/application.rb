@@ -8,6 +8,7 @@ Bundler.require(*Rails.groups)
 
 module Massorganizer
   class Application < Rails::Application
+    ENV["default_tele"] = "(314) 736-3270"
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

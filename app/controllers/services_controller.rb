@@ -15,7 +15,14 @@ class ServicesController < ApplicationController
       end
 
       q = params["q"]
-      receivers = params["receivers"]
+
+
+      interest = params["receivers"]
+      if interest == -1
+        receivers = -1
+      else
+        receivers = Interest.find(interest).devices.map{|a| a.id}
+      end
 
       if !receivers.kind_of?(Array) and receivers == -1
         send_arr = Device.all.map{|x| x.id}

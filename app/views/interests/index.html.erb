@@ -1,25 +1,24 @@
-<h1>Listing interests</h1>
+<h1>Listing Interests</h1>
 
 <table class="table">
   <thead>
     <tr>
-      <th>ID</th>
       <th>Name</th>
+      <th>Members</th>
       <th>Organization</th>
-      <th>Desc</th>
-      <th>Main email</th>
-      <th colspan="2"></th>
+      <th>Description</th>
+
     </tr>
   </thead>
 
   <tbody>
     <% @interests.each do |interest| %>
       <tr>
-        <td><%= interest.id %></td>
         <td><%= link_to interest.name, interest %></td>
-        <td><%= interest.organization.name %></td>
-        <td><%= interest.desc %></td>
-        <td><%= interest.main_email %></td>
+        <td><%= interest.devices.count %></td>
+        <td><%= link_to interest.organization.name, interest.organization %></td>
+        <td><%= interest.desc || "No description" %></td>
+
         <% if current_user and current_user.admin != 0 %>
         <td><%= link_to 'Edit', edit_interest_path(interest) %></td>
         <td><%= link_to 'Destroy', interest, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -30,5 +29,3 @@
 </table>
 
 <br>
-
-<%= link_to 'New Interest', new_interest_path %>

@@ -1,4 +1,6 @@
-<%= form_for(@device) do |f| %>
+<div class="row">
+  <div class="col-md-6">
+  <%= form_for(@device) do |f| %>
   <% if @device.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@device.errors.count, "error") %> prohibited this device from being saved:</h2>
@@ -12,20 +14,32 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :tele %><br>
-    <%= f.text_field :tele %>
+    <%= f.label :telephone %><br>
+    <%= f.text_field :tele , :class=>"form-control", :required=>true %>
   </div>
   <div class="field">
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, :class=>"form-control", :required=>true %>
   </div>
+
 
 
   <div class="field">
-    <%= f.label :pawprint %><br>
-    <%= f.text_field :pawprint %>
+    <%= f.label :email %><br>
+    <%= f.text_field :email, :class=>"form-control", :required=>true %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+
+  <div class="field">
+    <%= f.label :organization_id %><br>
+
+    <%= f.select(:current_org, options_for_select( Organization.all.order(:name).map { |o| [o.name, o.id] }),{:include_blank=>"Select an Organization"}, {:class=>'form-control'}) %>
+  </div>
+
+
+  <div class="actions buffer-top">
+    <%= f.submit(:class=>"form-control btn btn-primary") %>
   </div>
 <% end %>
+
+</div>
+</div>

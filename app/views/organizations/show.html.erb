@@ -9,19 +9,21 @@
 
     <h2><%= @organization.name %></h2>
 
-    <p>
-      <strong>Desc:</strong>
-      <%= @organization.desc %>
-    </p>
 
     <p>
       <strong>Phone number:</strong>
-      <%= @organization.phone_number %>
+      <%= @organization.phone_number || ENV["default_tele"] %>
     </p>
 
     <p>
       <strong>Owner:</strong>
-      <%= @organization.owner_id %>
+      <%= @organization.user.email %>
+    </p>
+
+
+    <p>
+      <strong>Desc:</strong>
+      <%= @organization.desc || "No description" %>
     </p>
   </div>
   <div class="col-sm-5">
@@ -60,3 +62,11 @@
 </div>
 
 <hr>
+
+<% if current_user and current_user.admin != 0 %>
+<div class="row">
+  <code>
+  <%= @email_list %>
+  </code>
+</div>
+<% end %>

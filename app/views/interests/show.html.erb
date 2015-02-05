@@ -2,23 +2,13 @@
 
 
 <p>
-  <strong>Name:</strong>
-  <%= @interest.name %>
+  <h1><%= @interest.name %></h1>
+
 </p>
 
 <p>
-  <strong>Organization:</strong>
-  <%= @interest.organization_id %>
-</p>
-
-<p>
-  <strong>Desc:</strong>
-  <%= @interest.desc %>
-</p>
-
-<p>
-  <strong>Main email:</strong>
-  <%= @interest.main_email %>
+  <strong>Email:</strong>
+  <%= @interest.organization.user.email.humanize %>
 </p>
 
 <p>
@@ -26,19 +16,40 @@
   <%= link_to @interest.organization.name, @interest.organization %>
 </p>
 
+<p>
+  <strong>Description:</strong>
+  <%= @interest.desc %>
+</p>
 
-<%= link_to 'Edit', edit_interest_path(@interest) if current_user and current_user.id != 0 %> |
+
+<%= link_to 'Edit', edit_interest_path(@interest) if current_user and current_user.id != 0 %>
 <%= link_to 'Back', interests_path %>
 
 <hr>
 
-<h3>Devices</h3>
-<ul>
-  <% if @devices.count == 0 %>
-    No devices associated with this interest
-  <% else %>
-    <% @devices.each do |device| %>
-      <li><%= link_to device.name, device %></li>
-    <% end %>
-  <% end %>
-</ul>
+<h3>Member's Devices <label class="badge"><%= @devices.count %></label></h3>
+<% if @devices.count == 0 %>
+  No devices associated with this interest.
+<% else %>
+  <ul>
+      <% @devices.each do |device| %>
+        <li><%= link_to device.name, device %></li>
+      <% end %>
+  </ul>
+<% end %>
+
+<% if current_user and current_user.admin != 0 %>
+<div>
+  <hr>
+
+    <h3>Mailing List</h3>
+    <p>
+      Mailing list for this interest
+    </p>
+      <code>
+        <%= @devices.map{|a| a.email || a.pawprint + "@mail.missouri.edu"}.join(', ') %>
+      </code>
+    </p>
+  </p>
+</div>
+<% end %>

@@ -1,6 +1,4 @@
 body {
-  background-color: #aaa;
-  color: #fff;
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px;
@@ -15,6 +13,36 @@ body {
   padding:5px;
 }
 
+.welcome-name{
+  color:#16a085;
+  margin-top:50px;
+  margin-bottom:30px;
+  font-size: 60px;
+  line-height: 60px;
+}
+.welcome-call-div{
+  margin-bottom:30px;
+  }
+
+
+.non-contrast{
+  background:transparent;
+  border-color: #16a085;
+}
+.non-contrast:hover{
+
+  background-color: #16a085;
+  color:#fff;
+}
+.welcome-call{
+  border-color:#16a085;
+  background:transparent;
+  color:#333;
+  font-size:120%;
+}
+.welcome-call:hover{
+  background:#16a085;
+}
 
 
 .margin-top{
@@ -27,7 +55,9 @@ body {
   line-height:30px;
 }
 
-
+.buffer-top{
+  margin-top:10px;
+}
 
 .number{
   font-size:200%;
@@ -47,35 +77,6 @@ body {
 .footer{
   padding-bottom:50px;
   padding-top:50px;
-}
-
-p, ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
-  line-height: 18px;
-}
-
-pre {
-  background-color: #eee;
-  padding: 10px;
-  font-size: 11px;
-}
-
-a {
-  color: #000;
-  &:visited {
-    color: #666;
-  }
-  &:hover {
-    color: #fff;
-    background-color: #000;
-  }
-}
-
-div {
-  &.field, &.actions {
-    margin-bottom: 10px;
-  }
 }
 
 #notice {

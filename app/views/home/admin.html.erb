@@ -1,0 +1,26 @@
+<h1>Admin Page</h1>
+<% if current_user and current_user.admin != 0 %>
+<h3>Texting Service <button class="btn btn-primary pull-right" id="texting_service">Toggle</button></h3>
+<div id="texting_service_div" style="display:none">
+  <%= form_tag({controller: "services", action: "text"}, method: "post", class: "") do %>
+  <%= label_tag(:q, "Content") %>
+  <%= text_field_tag :q, nil, :class=>"form-control" %>
+  <br>
+  <%= label_tag("Receivers") %>
+
+  <%= select_tag :receivers, options_for_select(@interests_arr), {:class=>"form-control"} %>
+
+  <%= submit_tag "Send", :class => "form-control btn btn-warning", :style=>"margin-top:20px", data: { confirm: "Are you sure?" } %>
+  <% end %>
+
+</div>
+
+<% end %>
+
+
+<script type="text/javascript">
+$('#texting_service').click(function(){
+  console.log("clicked");
+  $('#texting_service_div').toggle();
+})
+</script>

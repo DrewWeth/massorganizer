@@ -11,11 +11,6 @@ class OrganizationsController < ApplicationController
       @owned = []
     end
 
-    if current_user and current_user.admin != 0
-      @members_arr = Device.all.map{|x| [ x.name + " (" + x.tele + ")", x.id]}
-      @members_arr.push(["All", -1])
-
-    end
   end
 
   # GET /organizations/1
@@ -23,6 +18,17 @@ class OrganizationsController < ApplicationController
   def show
     @interests = @organization.interests
     @interest = Interest.new
+
+
+    if current_user and current_user.admin != 0
+      @email_list = ""
+      @interests.each do |a|
+          @email_list << a.devices.collect{|b| b.email}.join(', ')
+
+      end
+
+    end
+
   end
 
   # GET /organizations/new
@@ -37,15 +43,23 @@ class OrganizationsController < ApplicationController
   # POST /organizations
   # POST /organizations.json
   def create
-    @organization = Organization.new(organization_params)
-    @organization.owner_id = current_user.id
-    respond_to do |format|
-      if @organization.save
-        format.html { redirect_to @organization, notice: 'Organization was successfully created.' }
-        format.json { render :show, status: :created, location: @organization }
-      else
-        format.html { render :new }
-        format.json { render json: @organization.errors, status: :unprocessable_entity }
+    if current_user != nil
+
+      @organization = Organization.new(organization_params)
+      @organization.owner_id = current_user.id
+      respond_to do |format|
+        if @organization.save
+          format.html { redirect_to @organization, notice: 'Organization was successfully created.' }
+          format.json { render :show, status: :created, location: @organization }
+        else
+          format.html { render :new }
+          format.json { render json: @organization.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to new_user_registration_path, notice: 'Please sign up to start making an organization!' }
+
       end
     end
   end

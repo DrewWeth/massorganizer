@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  root 'organizations#index'
+  root 'home#index'
 
   post 'services/text' => 'services#text'
+
+  get 'home/index' => 'home#index'
+  get 'home' => 'home#index'
+  get 'home/admin' => 'home#admin', as: 'admin_page'
+
 
   resources :organizations
 

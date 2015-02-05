@@ -32,12 +32,12 @@
         <% end %>
 
 
-        ><%= link_to 'Organizations', organizations_path %></li>
+        ><%= link_to '<span class="glyphicon glyphicon-th"></span> '.html_safe + 'Organizations', organizations_path %></li>
         <li
         <% if params["controller"] == "interests" %>
         class="active"
         <% end %>
-        ><%= link_to 'Interests', interests_path %></li>
+        ><%= link_to '<span class="glyphicon glyphicon-heart"></span> '.html_safe + 'Interests', interests_path %></li>
 
         <% if current_user and current_user.admin != 0 %>
           <li
@@ -51,7 +51,7 @@
         <% if params["controller"] == "devices" %>
         class="active"
         <% end %>
-        ><%= link_to 'Devices', devices_path %></li>
+        ><%= link_to '<span class="glyphicon glyphicon-phone"></span> '.html_safe + "Devices", devices_path %></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
@@ -60,7 +60,7 @@
           <% if current_user == nil %>
             <%= link_to 'Sign In', new_user_session_path %>
           <% else %>
-            <%= link_to current_user.email, edit_user_registration_path %>
+            <%= link_to '<span class="glyphicon glyphicon-user"></span> '.html_safe + current_user.email, edit_user_registration_path %>
           <% end %>
         </li>
       </ul>
@@ -96,7 +96,7 @@
     <div class="navbar-center">
 
         <div class="margin-top">
-          Usage: Text <code>Your name (your pawprint) list of interests</code> or <code>Usage</code> to +1 (314) 736-3270
+          Usage: Text <code>Your Name</code> to (314) 736-3270
           </div>
 
     </div>
