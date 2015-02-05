@@ -27,7 +27,7 @@
     </p>
   </div>
   <div class="col-sm-5">
-    <% if is_admin? or @organization.owner_id == current_user.id %>
+    <% if is_admin? or (current_user and @organization.owner_id == current_user.id) %>
       <h3>Created Interest</h3>
       <%= render :template => "interests/_form" %>
     <% end %>
