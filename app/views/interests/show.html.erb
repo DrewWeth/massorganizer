@@ -35,7 +35,7 @@
   </ul>
 <% end %>
 
-<% if int_mod? %>
+
 <% list = @devices.reject{|b| b.email.nil? and b.pawprint.nil? }.map{|a| a.email || a.pawprint + "@mail.missouri.edu"} %>
 <div>
   <hr>
@@ -50,4 +50,3 @@
     </p>
   </p>
 </div>
-<% end %>
