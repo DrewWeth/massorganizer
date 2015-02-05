@@ -10,9 +10,12 @@ class HomeController < ApplicationController
     if int_mod?
       @interests_arr = Interest.all.map{|x| [ x.name + " in " + x.organization.name, x.id]}
       @interests_arr.push(["All", -1])
+
+      @admins = User.where.not(:admin => 0).order("admin DESC")
     else
       redirect_to root_path
     end
+
 
   end
 

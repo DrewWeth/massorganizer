@@ -32,8 +32,20 @@
   </div>
 </div>
 
+<div>
+<hr>
+<h3>Admins</h3>
+<ul>
+<% @admins.each do |a| %>
+<li><%= a.email %> (<%= a.admin %>)</li>
+<% end %>
+</ul>
 
 <% end %>
+
+
+
+
 
 
 <script type="text/javascript">
