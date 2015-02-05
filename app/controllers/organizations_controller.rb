@@ -19,9 +19,9 @@ class OrganizationsController < ApplicationController
     @interests = @organization.interests
     @interest = Interest.new
 
+    @email_list = []
 
     if int_mod?
-      @email_list = []
       # @interests.each do |a|
       #     @email_list << a.devices.reject{|b| b.email.nil? and b.pawprint.nil? }.map{|a| a.email || a.pawprint + "@mail.missouri.edu"} if a.devices.count > 0
       # end
