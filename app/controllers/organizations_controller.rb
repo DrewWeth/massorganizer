@@ -29,8 +29,8 @@ class OrganizationsController < ApplicationController
       # @devices_with_emails.each do |d|
       #   @email_list << d.email if DeviceInterest.where(:device_id => d.id)
       # end
-      @email_list = Device.all.map{|x| x.email || (x.pawprint + "@mail.missouri.edu" if !x.pawprint.nil?) }
-      @email_list = @email_list.join(', ')
+      @email_list = Device.all.reject{|r| r.email.nil? and r.pawprint.nil?}.map{|x| x.email || x.pawprint + "@mail.missouri.edu" }
+
     end
 
   end

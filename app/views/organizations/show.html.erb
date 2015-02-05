@@ -67,8 +67,9 @@
 
 <% if int_mod? %>
 <div class="row">
+  <label class="badge"><%= @email_list.count %></label><br>
   <code>
-  <%= @email_list %>
+  <%= @email_list.join(', ') %>
   </code>
 </div>
 <% end %>
