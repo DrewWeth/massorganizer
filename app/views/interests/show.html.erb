@@ -3,12 +3,11 @@
 
 <p>
   <h1><%= @interest.name %></h1>
-
 </p>
 
 <p>
   <strong>Email:</strong>
-  <%= @interest.organization.user.email.humanize %>
+  <%= @interest.organization.user.email %>
 </p>
 
 <p>
@@ -18,9 +17,8 @@
 
 <p>
   <strong>Description:</strong>
-  <%= @interest.desc %>
+  <%= @interest.desc || "No description" %>
 </p>
-
 
 <%= link_to 'Edit', edit_interest_path(@interest) if is_admin? %>
 <%= link_to 'Back', interests_path %>
@@ -33,7 +31,7 @@
 <% else %>
   <ul>
       <% @devices.each do |device| %>
-        <li><%= link_to device.name, device %></li>
+        <li><%= link_to device.name || "Not available", device %></li>
       <% end %>
   </ul>
 <% end %>
@@ -41,7 +39,6 @@
 <% if int_mod? %>
 <div>
   <hr>
-
     <h3>Mailing List</h3>
     <p>
       Mailing list for this interest
