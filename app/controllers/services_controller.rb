@@ -7,7 +7,7 @@ class ServicesController < ApplicationController
 
       puts "Twilio authentication"
       account_sid = 'AC29e7b96239c5f0bfc6ab8b724e263f30'
-      auth_token = 'e9befab8a2ea884e92db21709fe073e1'
+      auth_token = '77d93608f97102a6011bb3fd90229a85'
       begin
         @client = Twilio::REST::Client.new account_sid, auth_token
       rescue Twilio::RESR::RequestError => e
