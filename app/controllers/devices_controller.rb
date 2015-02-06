@@ -3,31 +3,9 @@ class DevicesController < ApplicationController
 
 
 
-  skip_before_filter  :verify_authenticity_token
-  protect_from_forgery with: :null_session
 
   require 'twilio-ruby'
 
-
-
-  def message
-    result = {}
-
-    message_body = params["Body"]
-    from_number = params["From"]
-
-    device = get_device(from_number)
-    result[:device] = device
-
-    result[:setup] = ensure_setup(device, message_body)
-
-    result[:analyze] = analyze_text(device, message_body)
-
-    device.save
-
-    render :json => result
-
-  end
 
 
   # GET /devices

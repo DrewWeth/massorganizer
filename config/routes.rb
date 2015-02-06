@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
   resources :device_submissions
 
-  post 'devices/message' => 'devices#message'
+  post 'api/message' => 'api#message'
 
   resources :devices
 
