@@ -1,33 +1,38 @@
-<h1>Listing Organizations <label class="badge"><%= @organizations.count %></label><%= link_to 'Create Organization', new_organization_path, :class=>"pull-right btn btn-primary" %>
+<h1>Organizations <label class="badge"><%= @organizations.count %></label><%= link_to 'Create Organization', new_organization_path, :class=>"pull-right btn btn-primary" %>
 </h1>
 <div class="row">
   <div class="col-md-8">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Desc</th>
-          <th>Phone number</th>
-          <th>Owner</th>
-          <th colspan="2"></th>
-        </tr>
-      </thead>
 
-      <tbody>
+  <form class="form-inline" method="get" action="<%= url_for :controller => "organizations", :action => "search" %>">
+    <input type="text" name="q" class="form-control" placeholder="Search">
+    <input type="submit" value="Search" class="btn btn-default"/>
+    <% if params["q"] != nil %>
+      <%= link_to 'Clear', organizations_path, :class => "btn btn-info" %>
+    <% end %>
+  </form>
+</div>
+</div>
+
+
+
+<div class="row">
+  <div class="col-md-8">
+    <div class="list-group buffer-top">
+
         <% @organizations.each do |organization| %>
-        <tr>
-          <td><%= link_to organization.name, organization %></td>
-          <td><%= organization.desc || "No description" %></td>
-          <td><%= organization.phone_number || ENV["default_tele"] %></td>
-          <td><%= organization.user.email.humanize %></td>
+          <a href="<%= organization_path organization.id %>" class="list-group-item">
+          <span class="pull-right"><%= organization.user.email.humanize %></span>
+          <h4><%= organization.name %></h4>
+          <p><%= !organization.desc.blank? ? organization.desc : "No description" %></p>
+
           <% if current_user and current_user.id == organization.owner_id %>
-          <td><%= link_to 'Edit', edit_organization_path(organization) %></td>
-          <td><%= link_to 'Destroy', organization, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <%= link_to 'Edit', edit_organization_path(organization) %>
+              <%= link_to 'Destroy', organization, method: :delete, data: { confirm: 'Are you sure?' } %>
           <% end %>
-        </tr>
+          </a>
         <% end %>
-      </tbody>
-    </table>
+
+      </div>
   </div>
   <div class="col-md-4">
 

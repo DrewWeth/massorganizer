@@ -61,7 +61,7 @@ class ServicesController < ApplicationController
 
   def priv
     notice = "Failed. Privs not changed."
-    if is_admin?
+    if current_user.has_role? :admin
       if user = User.where(:email => params[:user]).take and current_user.id != user.id
         user.admin = params[:priv]
         if user.save

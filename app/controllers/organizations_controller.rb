@@ -4,13 +4,12 @@ class OrganizationsController < ApplicationController
   # GET /organizations
   # GET /organizations.json
   def index
-    @organizations = Organization.all
+    @organizations = Organization.order("RANDOM()").limit(10)
     if current_user != nil
       @owned = current_user.organizations
     else
       @owned = []
     end
-
   end
 
   # GET /organizations/1
@@ -19,20 +18,25 @@ class OrganizationsController < ApplicationController
     @interests = @organization.interests
     @interest = Interest.new
 
+    @members = DeviceMembership.where(:organization_id => @organization.id).map{|x| x.device}
+
     @email_list = []
 
-    if int_mod?
-      # @interests.each do |a|
-      #     @email_list << a.devices.reject{|b| b.email.nil? and b.pawprint.nil? }.map{|a| a.email || a.pawprint + "@mail.missouri.edu"} if a.devices.count > 0
-      # end
-      # @devices_with_emails = Device.where.not(:email => nil)
-      # @devices_with_emails.each do |d|
-      #   @email_list << d.email if DeviceInterest.where(:device_id => d.id)
-      # end
-      @email_list = Device.all.reject{|r| r.email.nil? and r.pawprint.nil?}.map{|x| x.email || x.pawprint + "@mail.missouri.edu" }
+    if current_user.try(:can_see?,@interest)
+      # @email_list = Device.all.reject{|r| r.email.nil? and r.pawprint.nil?}.map{|x| x.email || x.pawprint + "@mail.missouri.edu" }
+      @email_list = DeviceMembership.where(:organization_id => @organization.id).map{|x| x.device.email}
+    end
+  end
 
+  def search
+    @organizations = Organization.where("name like ? or desc like ?", "%#{params["q"]}%", "%#{params["q"]}%")
+    if current_user != nil
+      @owned = current_user.organizations
+    else
+      @owned = []
     end
 
+    render :index
   end
 
   # GET /organizations/new

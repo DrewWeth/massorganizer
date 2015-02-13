@@ -1,27 +1,20 @@
 # == Schema Information
 #
-# Table name: interests
+# Table name: device_memberships
 #
 #  id              :integer          not null, primary key
-#  name            :string(255)
+#  device_id       :integer
 #  organization_id :integer
-#  desc            :text
-#  main_email      :string(255)
 #  created_at      :datetime
 #  updated_at      :datetime
-#  rel_interest_id :integer
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
+  device_id: 1
   organization_id: 1
-  desc: MyText
-  main_email: MyString
 
 two:
-  name: MyString
+  device_id: 1
   organization_id: 1
-  desc: MyText
-  main_email: MyString

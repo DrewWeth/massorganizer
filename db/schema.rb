@@ -11,11 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150202033831) do
+ActiveRecord::Schema.define(version: 20150208065921) do
 
   create_table "device_interests", force: true do |t|
     t.integer  "device_id"
     t.integer  "interest_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "organization_id"
+  end
+
+  create_table "device_logs", force: true do |t|
+    t.integer  "device_id"
+    t.text     "message"
+    t.string   "to"
+    t.string   "from"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "device_memberships", force: true do |t|
+    t.integer  "device_id"
+    t.integer  "organization_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -44,6 +61,7 @@ ActiveRecord::Schema.define(version: 20150202033831) do
     t.string   "main_email"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "rel_interest_id"
   end
 
   create_table "organizations", force: true do |t|
@@ -53,6 +71,9 @@ ActiveRecord::Schema.define(version: 20150202033831) do
     t.integer  "owner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "org_key"
+    t.boolean  "public",         default: false
+    t.integer  "interest_count", default: 0,     null: false
   end
 
   create_table "roles", force: true do |t|

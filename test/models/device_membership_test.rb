@@ -1,20 +1,17 @@
 # == Schema Information
 #
-# Table name: interests
+# Table name: device_memberships
 #
 #  id              :integer          not null, primary key
-#  name            :string(255)
+#  device_id       :integer
 #  organization_id :integer
-#  desc            :text
-#  main_email      :string(255)
 #  created_at      :datetime
 #  updated_at      :datetime
-#  rel_interest_id :integer
 #
 
 require 'test_helper'
 
-class InterestTest < ActiveSupport::TestCase
+class DeviceMembershipTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

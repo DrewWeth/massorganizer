@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: device_interests
+#
+#  id              :integer          not null, primary key
+#  device_id       :integer
+#  interest_id     :integer
+#  created_at      :datetime
+#  updated_at      :datetime
+#  organization_id :integer
+#
+
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:

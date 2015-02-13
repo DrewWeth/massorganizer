@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'home/admin' => 'home#admin', as: 'admin_page'
   get 'services/priv' => 'services#priv'
 
+  get 'organizations/search' => 'organizations#search'
   resources :organizations
 
   resources :interests

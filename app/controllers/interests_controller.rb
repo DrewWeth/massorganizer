@@ -27,9 +27,13 @@ class InterestsController < ApplicationController
   def create
     @interest = Interest.new(interest_params)
     @interest.organization_id = params["organization_id"]
-
+    @interest.rel_interest_id = @interest.organization.interest_count
     respond_to do |format|
       if @interest.save
+        org = @interest.organization
+        org.interest_count += 1
+        org.save
+
         format.html { redirect_to :back, notice: 'Interest was successfully created.' }
         format.json { render :show, status: :created, location: @interest }
       else
@@ -56,6 +60,11 @@ class InterestsController < ApplicationController
   # DELETE /interests/1
   # DELETE /interests/1.json
   def destroy
+    org = @interest.organization
+    org.interest_count -= 1
+    org.save
+
+
     @interest.destroy
     respond_to do |format|
       format.html { redirect_to interests_url, notice: 'Interest was successfully destroyed.' }

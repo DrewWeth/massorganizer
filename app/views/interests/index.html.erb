@@ -1,4 +1,4 @@
-<h1>Listing Interests <label class="badge"><%= @interests.count %></h1>
+<h1>Interests <label class="badge"><%= @interests.count %></h1>
 
 <table class="table">
   <thead>
@@ -17,12 +17,9 @@
         <td><%= link_to interest.name, interest %></td>
         <td><%= interest.devices.count %></td>
         <td><%= link_to interest.organization.name, interest.organization %></td>
-        <td><%= interest.desc || "No description" %></td>
+        <td><%= interest.desc.blank? ? "No description" : interest.desc %></td>
 
-        <% if is_admin? %>
-        <td><%= link_to 'Edit', edit_interest_path(interest) %></td>
-        <td><%= link_to 'Destroy', interest, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
+
       </tr>
     <% end %>
   </tbody>

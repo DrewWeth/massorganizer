@@ -7,8 +7,11 @@
     <%= link_to 'Back', organizations_path %>
 
 
-    <h2><%= @organization.name %></h2>
-
+    <h2><%= @organization.name %>
+      <% if current_user.try(:can_see?,@organization) %>
+       <span class="small"><%= @organization.org_key %></span>
+      <% end %>
+    </h2>
 
     <p>
       <strong>Phone number:</strong>
@@ -22,12 +25,12 @@
 
 
     <p>
-      <strong>Desc:</strong>
-      <%= @organization.desc || "No description" %>
+      <strong>Description:</strong>
+      <%= @organization.desc.blank? ? "No description" : @organization.desc %>
     </p>
   </div>
   <div class="col-sm-5">
-    <% if is_admin? or (current_user and @organization.owner_id == current_user.id) %>
+    <% if current_user.try(:can_see?, @organization) %>
       <h3>Created Interest</h3>
       <%= render :template => "interests/_form" %>
     <% end %>
@@ -43,7 +46,7 @@
   <div class="col-sm-2">
     <div class="id-box">
       <div class="number">
-        <%= interest.id %>
+        <%= interest.rel_interest_id %>
       </div>
       <!-- <%= interest.id %> -->
       <div class="name">
@@ -61,15 +64,31 @@
   <% end %>
 
 <% end %>
+
 </div>
+<%= "This organization has no interests" if @interests.count == 0  %>
 
 <hr>
 
-<% if int_mod? %>
+<h3>Members</h3>
 <div class="row">
-  <label class="badge"><%= @email_list.count %></label><br>
-  <code>
-  <%= @email_list.join(', ') %>
-  </code>
+  <div class="col-md-5">
+    <ul class="list-group">
+      <% @members.each do |m| %>
+          <%= link_to m.name.humanize, m, :class=> "list-group-item" %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 </div>
+<% if current_user.try(:can_see?,@organization) %>
+  <hr>
+  <h3>Mailing List <label class="badge"><%= @email_list.count %></label></h3>
+  <div class="row">
+    <p>
+      <code>
+        <%= @email_list.join(', ') %>
+      </code>
+    </p>
+  </div>
 <% end %>

@@ -13,8 +13,13 @@ body {
   padding:5px;
 }
 
+
+.buffer-right{
+  margin-right:15px;
+}
+
 .welcome-name{
-  color:#16a085;
+  color:#5cb85c;
   margin-top:50px;
   margin-bottom:30px;
   font-size: 60px;
@@ -24,6 +29,10 @@ body {
   margin-bottom:30px;
   }
 
+
+#error{
+  color:red;
+}
 
 .non-contrast{
   background:transparent;
@@ -41,7 +50,8 @@ body {
   font-size:120%;
 }
 .welcome-call:hover{
-  background:#16a085;
+  background:#5cb85c;
+  border-color:#eee;
 }
 
 
@@ -57,6 +67,14 @@ body {
 
 .buffer-top{
   margin-top:10px;
+}
+
+.buffer-2x-top{
+  margin-top:20px;
+}
+
+.buffer-bottom{
+  margin-bottom:15px;
 }
 
 .number{

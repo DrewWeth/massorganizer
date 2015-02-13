@@ -1,20 +1,23 @@
-<h1>Devices <label class="badge"><%= @devices.count %></label><%= link_to 'Register New Device', new_device_path, :class=>"btn btn-info pull-right" %></h1>
+<h1>Search Results <label class="badge"><%= results.count %></label><%= link_to 'Register New Device', new_device_path, :class=>"btn btn-info pull-right" %></h1>
 
 <table class="table">
   <thead>
     <tr>
       <th>Name</th>
+      <th>Pawprint</th>
       <th>Email</th>
       <th colspan="1"></th>
     </tr>
   </thead>
 
   <tbody>
-    <% @devices.each do |device| %>
+    <% @results.each do |device| %>
       <tr>
         <td><%= device.name %></td>
+        <td><%= device.pawprint %></td>
         <td><%= device.email %></td>
         <td><%= link_to 'Show', device %></td>
+
 
       </tr>
     <% end %>

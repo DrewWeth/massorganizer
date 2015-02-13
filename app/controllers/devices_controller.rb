@@ -17,29 +17,47 @@ class DevicesController < ApplicationController
   # GET /devices/1
   # GET /devices/1.json
   def show
+    orgs = @device.organizations
+
+    @results = []
+    orgs.each do |o|
+      temp = {}
+      ints = DeviceInterest.where(:organization_id => o.id, :device_id => @device.id)
+      temp[:organization] = o
+      temp[:interests] = ints
+      @results << temp
+    end
+
     @interests = @device.interests
   end
 
   # GET /devices/new
   def new
     @device = Device.new
+    # @organizations = Organization.all.order(:name).map { |o| [o.name, o.id] }
   end
 
   # GET /devices/1/edit
   def edit
+    # @organizations = Organization.all.order(:name).map { |o| [o.name, o.id] }
   end
 
   # POST /devices
   # POST /devices.json
   def create
     @device = Device.new(device_params)
-
+    org = Organization.where(:org_key => params[:secret_key]).take
+    if !org.nil?
+      @device.current_org = org.id
+      # @device = Device.new
+    end
     respond_to do |format|
-      if @device.save
+      if !org.nil? and @device.save
+        DeviceMembership.create(:device_id=>@device.id, :organization_id => org.id)
         format.html { redirect_to @device, notice: 'Device was successfully created.' }
         format.json { render :show, status: :created, location: @device }
       else
-        format.html { render :new }
+        format.html { flash[:alert] = "Invalid secret key. Ask your organization leader for the secret key!"; render :new }
         format.json { render json: @device.errors, status: :unprocessable_entity }
       end
     end
@@ -86,7 +104,7 @@ class DevicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def device_params
-      params.require(:device).permit(:tele, :pawprint, :name, :email, :current_org)
+      params.require(:device).permit(:tele, :pawprint, :name, :email, :secret_key )
     end
 
     def get_name(device, message_body)

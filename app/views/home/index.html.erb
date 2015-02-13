@@ -16,12 +16,20 @@
   <div class="col-md-8">
   <h2>Leading is hard, we make it easy.</h2>
   <p>Mass Organizer is a texting service that let's leaders of large organizations form the most complete mailing lists possible in moments. It's as easy as having your members text their name to a number.</p>
+  <hr>
+  <p>
+    <h3>Demo Time!</h3>
+    <form class="form-inline buffer-bottom" method="post" action="<%= url_for :controller=>"api", :action=>"message" %>">
+      <input type="phone" class="form-control" name="From" placeholder="Your Number"/>
+      <input type="text" class="form-control" name="Body" placeholder="Your Name"/>
 
+      <input type="submit" class="form-control btn btn-success" value="Text Me!"/>
+    </form>
+  </p>
   </div>
   <div class="col-md-4">
     <h2><small>Demo</small></h2>
-    <center>
+
     <%= image_tag "/example-1.png", :class=>"img img-responsive" %>
-  </center>
   </div>
 </div>

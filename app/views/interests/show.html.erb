@@ -1,12 +1,14 @@
 <p id="notice"><%= notice %></p>
 
+<%= link_to 'Back', interests_path %>
+
 <p>
   <h1><%= @interest.name %></h1>
 </p>
 
 <p>
   <strong>Email:</strong>
-  <%= @interest.organization.user.email %>
+  <%= @interest.organization.user.email.humanize %>
 </p>
 
 <p>
@@ -16,11 +18,10 @@
 
 <p>
   <strong>Description:</strong>
-  <%= @interest.desc || "No description" %>
+  <%= @interest.desc.blank? ? "No description" : @interest.desc %>
 </p>
 
-<%= link_to 'Edit', edit_interest_path(@interest) if is_admin? %>
-<%= link_to 'Back', interests_path %>
+<%= link_to 'Edit', edit_interest_path(@interest) if current_user.try(:can_see?,@interest.organization) %>
 
 <hr>
 

@@ -1,6 +1,6 @@
 <%= notice %>
 <h1>Admin Page</h1>
-<% if is_admin? %>
+<% if current_user.has_role? :admin %>
 <h3>Texting Service <button class="btn btn-primary pull-right" id="texting_service">Toggle</button></h3>
 <div id="texting_service_div" style="display:none">
   <%= form_tag({controller: "services", action: "text"}, method: "post", class: "") do %>

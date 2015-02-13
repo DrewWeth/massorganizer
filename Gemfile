@@ -16,6 +16,9 @@ group :production do
   gem 'pg'
 end
 
+gem 'annotate', '~> 2.6.5'
+
+
 gem 'twilio-ruby', '~> 3.11'
 
 gem 'quiet_assets', :group => :development

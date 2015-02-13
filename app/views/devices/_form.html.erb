@@ -22,17 +22,15 @@
     <%= f.text_field :name, :class=>"form-control", :required=>true %>
   </div>
 
-
-
   <div class="field">
     <%= f.label :email %><br>
     <%= f.text_field :email, :class=>"form-control", :required=>true %>
   </div>
 
   <div class="field">
-    <%= f.label :organization_id %><br>
+    <%= f.label :organization_secret_key %><br>
 
-    <%= f.select(:current_org, options_for_select( Organization.all.order(:name).map { |o| [o.name, o.id] }),{:include_blank=>"Select an Organization"}, {:class=>'form-control'}) %>
+    <input type="text" id="secret_key" name="secret_key" class="form-control"/>
   </div>
 
 
