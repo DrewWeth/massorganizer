@@ -30,6 +30,6 @@ class Device < ActiveRecord::Base
   validates :tele, :presence => true
 
 
-  
+
 
 end

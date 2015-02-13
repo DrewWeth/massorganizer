@@ -12,7 +12,7 @@
 
 <p>
   <strong>Connect:</strong>
-  <%= !@device.blank? ? @device.email : "Not available" %>
+  <%= !@device.email.blank? ? @device.email : "Not available" %>
 </p>
 
 <hr>
