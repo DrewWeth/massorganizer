@@ -18,35 +18,25 @@ class ServicesController < ApplicationController
 
 
       interest = params["receivers"]
-      if interest == -1
-        receivers = -1
-      else
-        receivers = Interest.find(interest).devices.map{|a| a.id}
-      end
+      send_arr = Interest.find(interest).devices
 
-      if !receivers.kind_of?(Array) and receivers == -1
-        send_arr = Device.all.map{|x| x.id}
-      else
-        send_arr = receivers
-      end
+
 
       result[:send_count] = send_arr.count
       result[:q] = q
 
-      result[:receivers] = receivers
       result[:send_arr] = send_arr
 
       result[:sent_to] = []
 
       send_arr.each do |send|
 
-        device = Device.where(:id=> send.to_i).take
-        result[:sent_to].push(device)
+        result[:sent_to].push(send)
         begin
 
           @client.account.messages.create(
           :from => '+13147363270',
-          :to => device.tele,
+          :to => send.tele,
           :body => q
           )
         rescue Exception => e

@@ -7,11 +7,10 @@ class HomeController < ApplicationController
   end
 
   def admin
-    if int_mod?
+    if current_user.try(:has_role?, :admin)
       @interests_arr = Interest.all.map{|x| [ x.name + " in " + x.organization.name, x.id]}
-      @interests_arr.push(["All", -1])
 
-      @admins = User.where.not(:admin => 0).order("admin DESC")
+      @admins = User.with_role(:admin)
     else
       redirect_to root_path
     end

@@ -3,40 +3,40 @@
 
 <div class="row">
   <div class="col-md-5">
-<h3>Device</h3>
-<div class="buffer-2x-top"></div>
-<p>
-  <strong>Name:</strong>
-  <%= @device.name %>
-</p>
+    <h3>Device</h3>
+    <div class="buffer-2x-top"></div>
+    <p>
+      <strong>Name:</strong>
+      <%= @device.name %>
+    </p>
 
-<p>
-  <strong>Connect:</strong>
-  <%= !@device.email.blank? ? @device.email : "Not available" %>
-</p>
+    <p>
+      <strong>Connect:</strong>
+      <%= @device.email %>
+    </p>
 
-<hr>
-<h4>Memberships</h4>
+    <hr>
+    <h4>Memberships</h4>
 
-<% if @results.count > 0 %>
-  <ul class="list-group">
-  <% @results.each do |r| %>
-    <li class="list-group-item">
-    <%= link_to r[:organization].name, r[:organization] %>
-    <ul>
-    <% r[:interests].each do |i| %>
-      <li>
-        <%= link_to i.interest.name, i.interest %>
-      </li>
+    <% if @results.count > 0 %>
+      <ul class="list-group">
+      <% @results.each do |r| %>
+        <li class="list-group-item">
+        <%= link_to r[:organization].name, r[:organization] %>
+        <ul>
+        <% r[:interests].each do |i| %>
+          <li>
+            <%= link_to i.interest.name, i.interest %>
+          </li>
+        <% end %>
+        </ul>
+        </li>
+      <% end %>
+      </ul>
+    <% else %>
+      Device is not a member of any organizations.
     <% end %>
-    </ul>
-    </li>
-  <% end %>
-  </ul>
-<% else %>
-  Device is not a member of any organizations.
-<% end %>
-</div>
+  </div>
 </div>
 
 <br>
